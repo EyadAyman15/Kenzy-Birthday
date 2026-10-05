@@ -1,0 +1,695 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <title>Happy 16th Birthday, Kenzy! ✨</title>
+    <style>
+        :root {
+            --bg-dark: #120516;
+            --pink-primary: #ff758c;
+            --pink-light: #ff7eb3;
+            --pink-glow: rgba(255, 117, 140, 0.4);
+            --lavender-glow: rgba(232, 121, 249, 0.35);
+            --card-bg: rgba(28, 12, 34, 0.75);
+            --border-pink: rgba(255, 117, 140, 0.3);
+            --text-light: #fff0f6;
+            --text-sub: #f472b6;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            user-select: none;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        body {
+            background-color: var(--bg-dark);
+            background-image: 
+                radial-gradient(at 10% 20%, rgba(255, 117, 140, 0.18) 0px, transparent 50%),
+                radial-gradient(at 90% 80%, rgba(232, 121, 249, 0.18) 0px, transparent 50%),
+                radial-gradient(at 50% 50%, rgba(255, 126, 179, 0.1) 0px, transparent 70%);
+            color: var(--text-light);
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            overflow: hidden;
+            position: relative;
+        }
+
+        /* Floating Particle Background */
+        .particles-container {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 1;
+            overflow: hidden;
+        }
+
+        .particle {
+            position: absolute;
+            bottom: -20px;
+            font-size: 1.2rem;
+            animation: floatUp 8s infinite linear;
+            opacity: 0.7;
+        }
+
+        @keyframes floatUp {
+            0% {
+                transform: translateY(0) rotate(0deg) scale(0.8);
+                opacity: 0;
+            }
+            20% {
+                opacity: 0.8;
+            }
+            80% {
+                opacity: 0.8;
+            }
+            100% {
+                transform: translateY(-105vh) rotate(360deg) scale(1.2);
+                opacity: 0;
+            }
+        }
+
+        /* Floating Audio Control */
+        .music-btn {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            z-index: 100;
+            background: rgba(255, 117, 140, 0.2);
+            border: 1px solid var(--border-pink);
+            backdrop-filter: blur(8px);
+            border-radius: 50px;
+            padding: 8px 16px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            cursor: pointer;
+            color: var(--text-light);
+            font-size: 0.8rem;
+            letter-spacing: 1px;
+            box-shadow: 0 0 15px var(--pink-glow);
+            transition: all 0.3s ease;
+        }
+
+        .music-btn:hover {
+            transform: scale(1.05);
+            background: rgba(255, 117, 140, 0.35);
+        }
+
+        .equalizer {
+            display: flex;
+            align-items: flex-end;
+            gap: 2px;
+            height: 12px;
+        }
+
+        .eq-bar {
+            width: 3px;
+            background: var(--pink-light);
+            border-radius: 2px;
+            animation: bounce 1s infinite ease-in-out alternate;
+        }
+
+        .eq-bar:nth-child(1) { height: 40%; animation-delay: 0.1s; }
+        .eq-bar:nth-child(2) { height: 100%; animation-delay: 0.3s; }
+        .eq-bar:nth-child(3) { height: 60%; animation-delay: 0.2s; }
+
+        .paused .eq-bar {
+            animation: none;
+            height: 30%;
+        }
+
+        @keyframes bounce {
+            0% { height: 20%; }
+            100% { height: 100%; }
+        }
+
+        /* Screens */
+        .screen {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            padding: 24px;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.8s cubic-bezier(0.4, 0, 0.2, 1), transform 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+            transform: translateY(20px) scale(0.97);
+            text-align: center;
+            z-index: 2;
+        }
+
+        .screen.active {
+            opacity: 1;
+            pointer-events: auto;
+            transform: translateY(0) scale(1);
+        }
+
+        /* Profile Halo Accent */
+        .profile-container {
+            position: relative;
+            margin-bottom: 20px;
+        }
+
+        .profile-frame {
+            width: 110px;
+            height: 110px;
+            border-radius: 50%;
+            padding: 4px;
+            background: linear-gradient(135deg, #ff758c, #e879f9, #ff7eb3);
+            box-shadow: 0 0 30px var(--pink-glow), 0 0 50px var(--lavender-glow);
+            animation: pulseGlow 3s infinite alternate;
+        }
+
+        @keyframes pulseGlow {
+            0% { box-shadow: 0 0 20px var(--pink-glow); }
+            100% { box-shadow: 0 0 40px var(--lavender-glow), 0 0 15px var(--pink-primary); }
+        }
+
+        .profile-img {
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
+            object-fit: contain;
+            border: 2px solid var(--bg-dark);
+        }
+
+        .floating-sparkle {
+            position: absolute;
+            top: -6px;
+            right: -6px;
+            font-size: 1.4rem;
+            animation: spinSparkle 4s infinite linear;
+        }
+
+        @keyframes spinSparkle {
+            0% { transform: rotate(0deg) scale(1); }
+            50% { transform: rotate(180deg) scale(1.2); }
+            100% { transform: rotate(360deg) scale(1); }
+        }
+
+        .badge-date {
+            font-size: 0.75rem;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            font-weight: 600;
+            color: #ff9ebb;
+            background: rgba(255, 117, 140, 0.12);
+            border: 1px solid rgba(255, 117, 140, 0.35);
+            padding: 6px 16px;
+            border-radius: 30px;
+            margin-bottom: 20px;
+            backdrop-filter: blur(4px);
+            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+        }
+
+        .mystery-title {
+            font-size: 2.2rem;
+            font-weight: 700;
+            letter-spacing: -0.5px;
+            margin-bottom: 8px;
+            background: linear-gradient(135deg, #ffffff 30%, #ffb3c6 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .mystery-sub {
+            font-size: 0.95rem;
+            color: var(--text-sub);
+            margin-bottom: 36px;
+            letter-spacing: 0.5px;
+        }
+
+        /* Buttons */
+        .btn-action {
+            background: linear-gradient(135deg, #ff758c 0%, #ff7eb3 50%, #e879f9 100%);
+            border: none;
+            color: #fff;
+            padding: 14px 40px;
+            font-size: 0.9rem;
+            font-weight: 600;
+            letter-spacing: 2px;
+            border-radius: 50px;
+            cursor: pointer;
+            box-shadow: 0 8px 25px var(--pink-glow);
+            transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .btn-action::after {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: linear-gradient(60deg, transparent, rgba(255,255,255,0.3), transparent);
+            transform: rotate(30deg);
+            transition: all 0.6s ease;
+        }
+
+        .btn-action:hover::after {
+            left: 100%;
+        }
+
+        .btn-action:hover {
+            transform: translateY(-3px) scale(1.03);
+            box-shadow: 0 12px 30px var(--pink-glow);
+        }
+
+        .btn-action:active {
+            transform: translateY(1px) scale(0.98);
+        }
+
+        /* Screen 2: Gallery */
+        .gallery-header {
+            font-size: 0.85rem;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            color: var(--text-sub);
+            margin-bottom: 16px;
+            font-weight: 600;
+        }
+
+        .carousel-container {
+            width: 100%;
+            max-width: 360px;
+            height: 58vh;
+            position: relative;
+            border-radius: 20px;
+            overflow: hidden;
+            background: var(--card-bg);
+            border: 1px solid var(--border-pink);
+            box-shadow: 0 15px 35px rgba(0,0,0,0.5), 0 0 25px var(--pink-glow);
+            backdrop-filter: blur(10px);
+        }
+
+        .slide {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            opacity: 0;
+            transition: opacity 0.6s ease-in-out, transform 0.6s ease-in-out;
+            transform: scale(1.04);
+        }
+
+        .slide.active {
+            opacity: 1;
+            transform: scale(1);
+        }
+
+        .slide img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+        }
+
+        .carousel-nav {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            margin-top: 18px;
+        }
+
+        .nav-dots {
+            display: flex;
+            gap: 6px;
+            flex-wrap: wrap;
+            justify-content: center;
+            max-width: 180px;
+        }
+
+        .dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.2);
+            transition: all 0.3s ease;
+        }
+
+        .dot.active {
+            background: var(--pink-primary);
+            box-shadow: 0 0 10px var(--pink-primary);
+            transform: scale(1.3);
+        }
+
+        /* Screen 3: Message Card */
+        .card {
+            background: var(--card-bg);
+            border: 1px solid var(--border-pink);
+            border-radius: 24px;
+            padding: 28px 24px;
+            max-width: 400px;
+            width: 100%;
+            box-shadow: 0 20px 50px rgba(0,0,0,0.6), 0 0 30px var(--lavender-glow);
+            backdrop-filter: blur(12px);
+            text-align: left;
+            max-height: 68vh;
+            overflow-y: auto;
+            position: relative;
+        }
+
+        .card-profile-header {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            margin-bottom: 20px;
+            padding-bottom: 16px;
+            border-bottom: 1px solid var(--border-pink);
+        }
+
+        .card-avatar {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            object-fit: contain;
+            border: 2px solid var(--pink-primary);
+            box-shadow: 0 0 15px var(--pink-glow);
+        }
+
+        .card-meta {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .card-name {
+            font-size: 1.05rem;
+            font-weight: 700;
+            color: var(--text-light);
+        }
+
+        .card-subtext {
+            font-size: 0.78rem;
+            color: var(--text-sub);
+            letter-spacing: 0.5px;
+            margin-top: 2px;
+        }
+
+        .card-body {
+            font-size: 0.95rem;
+            line-height: 1.8;
+            color: #ffe4f1;
+            font-weight: 300;
+        }
+
+        .card-body p {
+            margin-bottom: 16px;
+        }
+
+        /* Screen 4: Call Transition */
+        .call-title {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: var(--text-light);
+            margin-bottom: 12px;
+            background: linear-gradient(135deg, #ffffff 0%, #ffb3c6 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .call-sub {
+            font-size: 0.9rem;
+            color: var(--text-sub);
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            margin-bottom: 30px;
+            font-weight: 600;
+        }
+
+        .heart-icon {
+            font-size: 3rem;
+            animation: heartBeat 1.5s infinite ease-in-out;
+            margin-top: 20px;
+            display: inline-block;
+            filter: drop-shadow(0 0 15px var(--pink-primary));
+        }
+
+        @keyframes heartBeat {
+            0% { transform: scale(1); }
+            14% { transform: scale(1.25); }
+            28% { transform: scale(1); }
+            42% { transform: scale(1.25); }
+            70% { transform: scale(1); }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- FLOATING BACKGROUND PARTICLES -->
+    <div class="particles-container" id="particles"></div>
+
+    <!-- BACKGROUND MUSIC TOGGLE -->
+    <div class="music-btn" id="musicBtn" onclick="toggleMusic()">
+        <div class="equalizer paused" id="equalizer">
+            <div class="eq-bar"></div>
+            <div class="eq-bar"></div>
+            <div class="eq-bar"></div>
+        </div>
+        <span id="musicText">MUSIC</span>
+    </div>
+
+    <!-- AUDIO ELEMENT (Uses high quality ambient track, or your local music.mp3) -->
+    <audio id="bgMusic" loop preload="auto">
+        <source src="music.mp3" type="audio/mpeg">
+        <source src="https://cdn.pixabay.com/download/audio/2022/05/27/audio_1808fbf07a.mp3" type="audio/mpeg">
+    </audio>
+
+    <!-- SCREEN 1: MYSTERY WELCOME -->
+    <div class="screen active" id="screen1">
+        <div class="profile-container">
+            <div class="profile-frame">
+                <img src="images/profile.jpg" alt="Kenzy Waleed" class="profile-img" onerror="this.src='https://via.placeholder.com/110/2a0e2a/ff758c?text=Kenzy'">
+            </div>
+            <span class="floating-sparkle">✨</span>
+        </div>
+        <div class="badge-date">OCTOBER 06 • 16TH BIRTHDAY 💖</div>
+        <div class="mystery-title">For Kenzy Waleed</div>
+        <div class="mystery-sub">I made something special just for you ✨</div>
+        <button class="btn-action" onclick="startExperience()">BEGIN 🌸</button>
+    </div>
+
+    <!-- SCREEN 2: MEMORIES (10 CAPTIONLESS PHOTOS) -->
+    <div class="screen" id="screen2">
+        <div class="gallery-header">A few memories I cherish ✨</div>
+        <div class="carousel-container" id="carousel">
+            
+            <div class="slide active">
+                <img src="images/memory1.jpg" alt="Memory 1" onerror="this.src='https://via.placeholder.com/400x550/2a0e2a/ff758c?text=Photo+1'">
+            </div>
+
+            <div class="slide">
+                <img src="images/memory2.jpg" alt="Memory 2" onerror="this.src='https://via.placeholder.com/400x550/2a0e2a/ff758c?text=Photo+2'">
+            </div>
+
+            <div class="slide">
+                <img src="images/memory3.jpg" alt="Memory 3" onerror="this.src='https://via.placeholder.com/400x550/2a0e2a/ff758c?text=Photo+3'">
+            </div>
+
+            <div class="slide">
+                <img src="images/memory4.jpg" alt="Memory 4" onerror="this.src='https://via.placeholder.com/400x550/2a0e2a/ff758c?text=Photo+4'">
+            </div>
+
+            <div class="slide">
+                <img src="images/memory5.jpg" alt="Memory 5" onerror="this.src='https://via.placeholder.com/400x550/2a0e2a/ff758c?text=Photo+5'">
+            </div>
+
+            <div class="slide">
+                <img src="images/memory6.jpg" alt="Memory 6" onerror="this.src='https://via.placeholder.com/400x550/2a0e2a/ff758c?text=Photo+6'">
+            </div>
+
+            <div class="slide">
+                <img src="images/memory7.jpg" alt="Memory 7" onerror="this.src='https://via.placeholder.com/400x550/2a0e2a/ff758c?text=Photo+7'">
+            </div>
+
+            <div class="slide">
+                <img src="images/memory8.jpg" alt="Memory 8" onerror="this.src='https://via.placeholder.com/400x550/2a0e2a/ff758c?text=Photo+8'">
+            </div>
+
+            <div class="slide">
+                <img src="images/memory9.jpg" alt="Memory 9" onerror="this.src='https://via.placeholder.com/400x550/2a0e2a/ff758c?text=Photo+9'">
+            </div>
+
+            <div class="slide">
+                <img src="images/memory10.jpg" alt="Memory 10" onerror="this.src='https://via.placeholder.com/400x550/2a0e2a/ff758c?text=Photo+10'">
+            </div>
+
+        </div>
+
+        <div class="carousel-nav">
+            <button class="btn-action" style="padding: 8px 20px; font-size:0.75rem;" onclick="prevSlide()">PREV</button>
+            <div class="nav-dots" id="dots"></div>
+            <button class="btn-action" style="padding: 8px 20px; font-size:0.75rem;" onclick="nextSlide()">NEXT</button>
+        </div>
+        
+        <button class="btn-action" style="margin-top:20px;" onclick="nextScreen(3)">CONTINUE ✨</button>
+    </div>
+
+    <!-- SCREEN 3: BIRTHDAY MESSAGE CARD -->
+    <div class="screen" id="screen3">
+        <div class="card">
+            <div class="card-profile-header">
+                <img src="images/profile.jpg" alt="Kenzy Waleed" class="card-avatar" onerror="this.src='https://via.placeholder.com/50/2a0e2a/ff758c?text=K'">
+                <div class="card-meta">
+                    <span class="card-name">Kenzy Waleed</span>
+                    <span class="card-subtext">October 6 • Turning 16 🎉</span>
+                </div>
+            </div>
+
+            <div class="card-body">
+                <!-- ==================================================== -->
+                <!-- WRITE YOUR PERSONAL BIRTHDAY MESSAGE BELOW THIS LINE -->
+                <!-- ==================================================== -->
+                <p>Happy 16th Birthday, Kenzy! 🎉✨</p>
+                <p>Even with all the distance between us, having you as my best friend means the world to me.</p>
+                <p>You built that incredible Batman website for my 17th birthday, so I wanted to make sure I built you something physical and personal on my own way just for yours 💖</p>
+                <p>Hope your Sweet 16 is as amazing, bright, and beautiful as you are!</p>
+				<p>Words can't describe how much I'm happy for having you by my side, you're adorable, amazing and very very beautiful either from outside or inside <3 </p>
+				<p>You always give a meaning for my life, you push me to be the best verson of myself, you're the reason I still believe that life still has so many things to enjoy</p>
+				<p>I love your infinite energy, your intelligence, your passion to try anything and everything, I really love how I see life in your eyes; I'M SO LUCKY TO HAVE YOU <333</p>
+				<p>you can't imagine how much I am proud of you, ALWAYS, whatever happens and whatever life throws at us, you're always going to be my best friend who can understand me without even trying, my favourite person to whom I can throw my crazy thoughts late at night, knowing that I'll surely find a soul who can always match me :))</p>
+				<p>believe in yourself, love yourself because you deserve the best all the time, I know you're going to be where and who you always dream of, I BELIEVE IN YOU TO THE STARS AND BACK!!</p>
+				<p>SWEET 16 KANOUZAAAAA <333 </p>
+				<p>Yours,</p>
+				<p>Eyad</p>
+                <!-- ==================================================== -->
+                <!-- WRITE YOUR PERSONAL BIRTHDAY MESSAGE ABOVE THIS LINE -->
+                <!-- ==================================================== -->
+            </div>
+        </div>
+        <button class="btn-action" style="margin-top:20px;" onclick="nextScreen(4)">NEXT ✨</button>
+    </div>
+
+    <!-- SCREEN 4: FINAL TRANSITION -->
+    <div class="screen" id="screen4">
+        <div class="profile-container">
+            <div class="profile-frame" style="width: 90px; height: 90px;">
+                <img src="images/profile.jpg" alt="Kenzy Waleed" class="profile-img" onerror="this.src='https://via.placeholder.com/90/2a0e2a/ff758c?text=K'">
+            </div>
+        </div>
+        <div class="call-title">But that's only half of it...</div>
+        <div class="call-sub">Now I need you to video call me 💖</div>
+        
+        <div class="heart-icon">💖</div>
+    </div>
+
+    <script>
+        // Floating Heart Particles Generator
+        const particlesContainer = document.getElementById('particles');
+        const particleIcons = ['💖', '✨', '🌸', '💕', '⭐', '🌷'];
+
+        function createParticle() {
+            const particle = document.createElement('span');
+            particle.classList.add('particle');
+            particle.innerText = particleIcons[Math.floor(Math.random() * particleIcons.length)];
+            particle.style.left = Math.random() * 100 + 'vw';
+            particle.style.animationDuration = (Math.random() * 4 + 6) + 's';
+            particle.style.fontSize = (Math.random() * 0.8 + 0.8) + 'rem';
+            particlesContainer.appendChild(particle);
+
+            setTimeout(() => {
+                particle.remove();
+            }, 10000);
+        }
+
+        setInterval(createParticle, 450);
+
+        // Music Controller
+        const bgMusic = document.getElementById('bgMusic');
+        const equalizer = document.getElementById('equalizer');
+        const musicText = document.getElementById('musicText');
+        let isPlaying = false;
+
+        function toggleMusic() {
+            if (isPlaying) {
+                bgMusic.pause();
+                equalizer.classList.add('paused');
+                musicText.innerText = "PLAY";
+                isPlaying = false;
+            } else {
+                bgMusic.play().then(() => {
+                    equalizer.classList.remove('paused');
+                    musicText.innerText = "MUSIC";
+                    isPlaying = true;
+                }).catch(err => console.log("Audio play deferred:", err));
+            }
+        }
+
+        function startExperience() {
+            if (!isPlaying) {
+                toggleMusic();
+            }
+            nextScreen(2);
+        }
+
+        // Screen Navigation
+        function nextScreen(screenNum) {
+            document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
+            document.getElementById('screen' + screenNum).classList.add('active');
+        }
+
+        // Gallery Carousel
+        let currentSlide = 0;
+        const slides = document.querySelectorAll('.slide');
+        const dotsContainer = document.getElementById('dots');
+
+        slides.forEach((_, idx) => {
+            const dot = document.createElement('div');
+            dot.classList.add('dot');
+            if(idx === 0) dot.classList.add('active');
+            dotsContainer.appendChild(dot);
+        });
+
+        const dots = document.querySelectorAll('.dot');
+
+        function updateGallery() {
+            slides.forEach((slide, idx) => {
+                slide.classList.toggle('active', idx === currentSlide);
+            });
+            dots.forEach((dot, idx) => {
+                dot.classList.toggle('active', idx === currentSlide);
+            });
+        }
+
+        function nextSlide() {
+            currentSlide = (currentSlide + 1) % slides.length;
+            updateGallery();
+        }
+
+        function prevSlide() {
+            currentSlide = (currentSlide - 1 + slides.length) % slides.length;
+            updateGallery();
+        }
+
+        // Touch Swipe Support
+        let touchStartX = 0;
+        const carousel = document.getElementById('carousel');
+
+        carousel.addEventListener('touchstart', e => {
+            touchStartX = e.changedTouches[0].screenX;
+        }, { passive: true });
+
+        carousel.addEventListener('touchend', e => {
+            let touchEndX = e.changedTouches[0].screenX;
+            if (touchStartX - touchEndX > 40) nextSlide();
+            if (touchEndX - touchStartX > 40) prevSlide();
+        }, { passive: true });
+    </script>
+</body>
+</html>
